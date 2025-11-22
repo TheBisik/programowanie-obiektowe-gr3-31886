@@ -1,13 +1,31 @@
-﻿namespace Lab3.Services;
+﻿using Lab3.Models;
+using Lab3.ProgramRepository;
+
+namespace Lab3.Services;
 
 public class ProgramService
 {
     private bool running = true;
     private static ProgramService programService = null;
+    private ProgramDatabase database = new ProgramDatabase();
 
-    public void run()
+    private ProgramService()
     {
-        GetInstance();
+        
+    }
+    public static ProgramService StartInstance()
+    {
+        if (programService == null) 
+        {
+            programService = new ProgramService();
+            programService.run();
+            
+        }
+        return programService;
+    }
+    
+    private void run()
+    {
         
         do
         {
@@ -19,19 +37,19 @@ public class ProgramService
             switch (input)
             {
                 case '1':
-                    //foreach interface connected to repo
+                    getVehicles();
                     break;
                 case '2':
-                    // Search object by year
+                    getVehiclesByYearFromUser();
                     break;
                 case '3':
-                    // search by model
+                    getVehiclesByModelFromUser();
                     break;
                 case '4':
-                    //Search by engine capacity
+                    getVehiclesByEngineCapacity();
                     break;
                 case '5':
-                    //Add car 
+                    addVehicleCarToDatabase();
                     break;
                 case '0':
                     Console.WriteLine("Program stopped");
@@ -45,9 +63,114 @@ public class ProgramService
         } while (running);
     }
 
-    private static ProgramService GetInstance()
+
+
+    private void getVehicles()
     {
-        if (programService == null) programService = new ProgramService();
-        return programService;
+        var count = database.GetVehicleDatabaseCount();
+        Console.WriteLine("Count of Vehicles in database:" + (count+1) + "\n");
+        for (int i = 0; i <  count; i++)
+        {
+            var Vehicle = database.GetVehicle(i);
+            Console.WriteLine(i + ". " + $"Type: {Vehicle.CheckTypeOfVehicle()}, Model: {Vehicle.CheckModel()}, Year: " + Vehicle.CheckYear() +", EngineCapacity: " + Vehicle.CheckEngineCapacity());
+        }
+        
     }
+
+    private void getVehiclesByYear(int year)
+    {
+        int i = 0;
+        Console.WriteLine("Vehicles By year:" + year +"\n");
+        foreach (var Vehicle in database.GetVehiclesByYear(year))
+        {
+            Console.WriteLine(++i + ". " + $"Type: {Vehicle.CheckTypeOfVehicle()}, Model: {Vehicle.CheckModel()}, Year: " + Vehicle.CheckYear() +", EngineCapacity: " + Vehicle.CheckEngineCapacity());
+
+        }
+    }
+
+    private void getVehiclesByModel(string model)
+    {
+        String lowerCaseInput = model.ToLower();
+        string translateModel = char.ToUpper(lowerCaseInput[0]) + lowerCaseInput.Substring(1);
+            
+        int i = 0;
+        Console.WriteLine("Pojazdy o modelu:" + translateModel +"\n");
+        foreach (var Vehicle in database.GetVehiclesByModel(translateModel))
+        {
+            Console.WriteLine(++i + ". " + $"Type: {Vehicle.CheckTypeOfVehicle()}, Model: {Vehicle.CheckModel()}, Year: " + Vehicle.CheckYear() +", EngineCapacity: " + Vehicle.CheckEngineCapacity());
+
+        }
+    }
+
+    private void getVehiclesByEngineCapacity(double engineCapacity)
+    {
+        int i = 0;
+        Console.WriteLine("Vehicles by Engine Capacity:" + engineCapacity +"\n");
+        foreach (var Vehicle in database.GetVehiclesByEngineCapacity(engineCapacity))
+        {
+            Console.WriteLine(++i + ". " + $"Type: {Vehicle.CheckTypeOfVehicle()}, Model: {Vehicle.CheckModel()}, Year: " + Vehicle.CheckYear() +", EngineCapacity: " + Vehicle.CheckEngineCapacity());
+    
+        }
+    }
+    
+    private void getVehiclesByYearFromUser()
+    {
+        Console.Write("Input year: ");
+    
+
+        string input = Console.ReadLine();
+
+
+        if (int.TryParse(input, out int year))
+        {
+
+            getVehiclesByYear(year); 
+        }
+        else
+        {
+            Console.WriteLine("Incorret Year.");
+        }
+    }
+
+    
+    private void getVehiclesByModelFromUser()
+    {
+        Console.Write("Enter the model to search for: ");
+        string input = Console.ReadLine();
+        getVehiclesByModel(input);
+    }
+    
+    private void getVehiclesByEngineCapacity()
+    {
+        Console.Write("Enter the Engine Capacity to search for: ");
+        string engineCapacity = Console.ReadLine();
+        getVehiclesByEngineCapacity(double.Parse(engineCapacity));
+    }
+
+    private void addVehicleCarToDatabase()
+    {
+        Console.Write("Enter the model: ");
+        string model = Console.ReadLine();
+        
+        Console.Write("Enter the year: ");
+        string year = Console.ReadLine();
+        int yearInt =  int.Parse(year);
+        
+        Console.Write("Enter the engine Capacity: ");
+        string engineCapacity = Console.ReadLine();
+        double engineCapacityDouble = double.Parse(engineCapacity);
+        
+        Console.Write("Enter the type: ");
+        string type = Console.ReadLine();
+        
+        
+        database.AddVehicle(new Car(type, engineCapacityDouble, model, yearInt));
+        
+        
+        
+        
+    }
+    
+    
+    
 }

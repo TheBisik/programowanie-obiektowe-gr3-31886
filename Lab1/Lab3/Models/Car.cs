@@ -1,18 +1,24 @@
-﻿namespace Lab3.Models;
-
-public class Car : Vehicle
+﻿public class Car : Vehicle
 {
-    public Car(double engineCapacity, string model, double year) : base(engineCapacity, model, year)
+
+    public Car(double engineCapacity, string model, int year) : base(engineCapacity, model, year)
     {
+        this.Type = "Car"; 
+    }
+    
+
+    public Car(String type, double engineCapacity, string model, int year) : base(type, engineCapacity, model, year)
+    {
+        
     }
 
     public override void Start()
     {
-        base.Start();
+        Console.WriteLine("Engine Start");
     }
 
     public override void Stop()
     {
-        base.Stop();
+        Console.WriteLine("Engine Stop");
     }
 }
