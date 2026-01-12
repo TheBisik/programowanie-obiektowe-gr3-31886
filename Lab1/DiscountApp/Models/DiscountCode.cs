@@ -1,8 +1,35 @@
-﻿namespace Lab1.Models;
+﻿using System;
+
+namespace Lab1.Models;
 
 public abstract class DiscountCode
 {
-    private int Id { get; set; }
-    private string Code { get; set; }
-    private CodeStatus Status { get; set; }
+    public int Id { get; set; }
+    public string Code { get; set; } = string.Empty;
+    public CodeStatus Status { get; set; } = CodeStatus.ACTIVE;
+
+    public virtual string GetCode()
+    {
+        return Code;
+    }
+
+    public virtual string GetStatus()
+    {
+        return Status.ToString();
+    }
+
+    public virtual void MarkAsUsed()
+    {
+        if (Status == CodeStatus.USED)
+        {
+            Status = CodeStatus.EXPIRED;
+        }
+        else
+        {
+            throw new InvalidOperationException("Code is already used");
+        }
+    }
+    
+    
+    
 }
