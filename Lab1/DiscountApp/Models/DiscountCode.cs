@@ -20,9 +20,9 @@ public abstract class DiscountCode
 
     public virtual void MarkAsUsed()
     {
-        if (Status == CodeStatus.USED)
+        if (Status == CodeStatus.ACTIVE)
         {
-            Status = CodeStatus.EXPIRED;
+            Status = CodeStatus.USED;
         }
         else
         {
