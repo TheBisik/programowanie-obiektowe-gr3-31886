@@ -1,0 +1,25 @@
+﻿Dokumentacja DiscountApp
+
+0. Informacje Ogólne
+
+DiscountApp (Aplikacja Rabatowa) służy werefikacji jednorzaowego użycia kodu rabatowego generowanego poprzez system lub wprowadzonego zewnętrznie do bazy danych.
+
+
+1. Program
+
+DiscountApp nie przyjmuje, żadnych parametrów  i domyślnie zwraca 0 przy zakończeniu pracy.
+
+2. Stack
+
+
+Baza Danych: PostgreSQL
+Frameworki: .NET, EF Core, 
+Menadżer pakietów: NuGet
+Kontener: Docker
+
+
+
+
+x. Słowa końcowe
+
+Domyślnie pisze w Javie i jest to pierwsze moje zetknięcie z C# i .NET oraz EF Core.
