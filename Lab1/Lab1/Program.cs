@@ -5,6 +5,7 @@ const string accessAllowed = "Witamy w naszym sklepie";
 
 int age;
 
+
 do
 {
     Console.WriteLine("Podaj swój wiek: ");
