@@ -62,4 +62,14 @@ public class DiscountService : IDiscountService
         
     }
     
+    public async Task DeleteCodeAsync(int id)
+    {
+        var code = await _context.Discounts.FindAsync(id);
+        if (code != null)
+        {
+            _context.Discounts.Remove(code);
+            await _context.SaveChangesAsync();
+        }
+    }
+    
 }

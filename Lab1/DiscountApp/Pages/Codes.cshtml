@@ -20,7 +20,7 @@
                 <th class="px-6 py-4">Kod</th>
                 <th class="px-6 py-4">Status</th>
                 <th class="px-6 py-4">Opis</th>
-            </tr>
+                <th class="px-6 py-4 text-right">Akcje</th> </tr>
             </thead>
             <tbody class="divide-y divide-gray-100 text-sm text-gray-700">
             @foreach (var item in Model.AllCodes) {
@@ -34,6 +34,13 @@
                         </span>
                     </td>
                     <td class="px-6 py-4 text-gray-500">@item.Description</td>
+                    <td class="px-6 py-4 text-right">
+                        <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" onsubmit="return confirm('Na pewno chcesz usunąć ten kod?');">
+                            @Html.AntiForgeryToken() <button type="submit" class="text-red-600 hover:text-red-900 font-medium transition">
+                                Usuń
+                            </button>
+                        </form>
+                    </td>
                 </tr>
             }
             </tbody>
