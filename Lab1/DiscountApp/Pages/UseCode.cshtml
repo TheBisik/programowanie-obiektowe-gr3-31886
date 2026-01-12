@@ -1,0 +1,44 @@
+﻿@page
+@model UseCodeModel
+@{
+    ViewData["Title"] = "Wykorzystaj kod";
+}
+
+<div class="max-w-2xl mx-auto py-20 px-6">
+    <div class="text-center mb-12">
+        <div class="inline-block p-3 bg-green-50 rounded-2xl mb-4">
+            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-900">Zrealizuj kupon</h2>
+        <p class="text-gray-500 mt-2">Wpisz swój kod poniżej, aby aktywować zniżkę.</p>
+    </div>
+
+    <form method="post" class="relative">
+        @Html.AntiForgeryToken()
+        <div class="flex flex-col md:flex-row gap-3">
+            <input type="text" id="inputCode" name="inputCode" required
+                   class="flex-1 px-6 py-4 bg-white border-2 border-gray-100 rounded-2xl focus:border-indigo-500 outline-none text-lg font-medium transition shadow-sm" 
+                   placeholder="Wpisz kod tutaj..." />
+            <button type="submit" class="px-8 py-4 bg-green-600 text-white font-bold rounded-2xl hover:bg-green-700 transition shadow-lg shadow-green-100">
+                Sprawdź
+            </button>
+        </div>
+    </form>
+
+    @if (!string.IsNullOrEmpty(Model.ResultMessage))
+    {
+        <div class="mt-8 animate-in fade-in slide-in-from-top-4 duration-300">
+            <div class="p-6 rounded-2xl border @(Model.IsSuccess ? "bg-green-50 border-green-100 text-green-800" : "bg-red-50 border-red-100 text-red-800") text-center">
+                <span class="block text-sm uppercase tracking-widest font-bold mb-1">@(Model.IsSuccess ? "Sukces" : "Błąd")</span>
+                <p class="text-lg font-medium">@Model.ResultMessage</p>
+            </div>
+        </div>
+    }
+
+    <div class="mt-12 pt-8 border-t border-gray-100 text-center">
+        <a href="/Codes" class="text-gray-400 hover:text-gray-600 transition flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Powrót do bazy
+        </a>
+    </div>
+</div>

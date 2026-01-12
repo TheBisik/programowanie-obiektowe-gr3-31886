@@ -1,0 +1,38 @@
+﻿@page
+@model ManagementModel
+@{
+    ViewData["Title"] = "Administracja";
+}
+<div class="min-h-[80vh] flex items-center justify-center px-6">
+    <div class="max-w-md w-full bg-white border border-gray-200 p-8 rounded-2xl shadow-xl shadow-gray-100/50">
+        <h2 class="text-2xl font-bold text-gray-900 mb-2 text-center">Zarządzanie kodami</h2>
+        <p class="text-gray-500 text-sm text-center mb-8">Wprowadź dane, aby utworzyć nowy rekord w bazie.</p>
+
+        <form method="post" class="space-y-4">
+            @Html.AntiForgeryToken()
+            <div>
+                <label class="block text-xs font-semibold text-gray-500 uppercase mb-1 ml-1">Kod rabatowy</label>
+                <input type="text" name="Code" placeholder="np. SUMMER2024" required 
+                       class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition" />
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-gray-500 uppercase mb-1 ml-1">Opis</label>
+                <input type="text" name="Description" placeholder="Krótki opis celu kodu" required 
+                       class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition" />
+            </div>
+            <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-100 mt-2">
+                Dodaj kod do systemu
+            </button>
+        </form>
+
+        @if (!string.IsNullOrEmpty(Model.Message))
+        {
+            <div class="mt-6 p-4 bg-blue-50 text-blue-700 text-sm rounded-lg border border-blue-100 text-center">
+                @Model.Message
+            </div>
+        }
+        <div class="mt-6 text-center">
+            <a href="/Codes" class="text-sm text-gray-400 hover:text-indigo-600 transition underline underline-offset-4">Wróć do listy kodów</a>
+        </div>
+    </div>
+</div>

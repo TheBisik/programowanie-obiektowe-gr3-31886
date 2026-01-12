@@ -49,35 +49,4 @@ Console.WriteLine("Zalogowano pomyślnie!");
 
 
 
-// zad 2
-// Poproś użytkownika o podanie liczby większej od zera. Jeśli poda liczbę ujemną lub 0 — zapytaj ponownie.
-
-
-int userNumber;
-
-
-do
-{
-    Console.WriteLine("Podaj Liczbę: ");
-
-    string input = Console.ReadLine();
-
-    bool success = int.TryParse(input, out userNumber);
-
-    if (!success)
-    {
-        Console.WriteLine("Podaj poprawną wartość! Liczbę wiekszą od 0!");
-    }
-
-} while (userNumber < 0);
-
-
-
-//zad 3
-//Zadanie 3: Utwórz tablicę z 5 nazwami miast i wypisz każde miasto w osobnej linii
-
-string[] cityList = { "Grudziądz", "Nowe", "Poznań", "Gdańsk", "Kraków" };
-foreach (string city in cityList)
-{
-    Console.WriteLine(($"Miasto: {city}"));
-}
+Console.WriteLine("Hello, World!");
