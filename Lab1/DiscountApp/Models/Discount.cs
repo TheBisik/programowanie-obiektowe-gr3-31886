@@ -2,10 +2,10 @@
 
 namespace Lab1.Models;
 
-[Table("DiscountTable")]
-public class Discount : DiscountCode
+[Table("DiscountTable")] // Data Annotation dla EF Core mapująca nazwe tabeli
+public class Discount : DiscountCode // klasa z dziedziczeniem po DiscountCode
 {
-    public string Description { get; set; }
+    public string Description { get; set; } // pole string z opisem
     
     
 }

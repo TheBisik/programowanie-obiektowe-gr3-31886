@@ -1,10 +1,11 @@
 ﻿namespace Lab1.Interfaces;
 
-public interface IDiscountService
+public interface IDiscountService //Interfejs serwisu wymuszajacy użycie metod poniżej
 {
-    Task<string> UseCodeAsync(string code);
+    //wprowadzam pojęcie asynchroniczności i mówię .net, że ma wykonać zadanie aby nie czekać na baze danych
+    Task<string> UseCodeAsync(string code);  // metoda: asynchronicznie zużyj kod
     
-    Task AddCodeAsync(string code, string description);
+    Task AddCodeAsync(string code, string description); // metoda: Dodaj rabat do DB
     
-    Task DeleteCodeAsync(int id);
+    Task DeleteCodeAsync(int id); // metoda: usuń rabat z DB
 }

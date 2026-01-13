@@ -2,7 +2,7 @@
 using Lab1.Services;
 using Microsoft.EntityFrameworkCore;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args); 
 
 Console.WriteLine("DISCOUNT APP IS STARTING...");
 
