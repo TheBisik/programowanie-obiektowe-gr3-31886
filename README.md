@@ -28,8 +28,47 @@ Mimo edukacyjnego charakteru projektu, zaimplementowano w nim wzorce klasy Enter
 * **Service Pattern:** Logika biznesowa została wyizolowana od warstwy prezentacji i zamknięta w dedykowanym serwisie.
 * **Repository Pattern:** Wykorzystanie `ApplicationDbContext` do abstrakcji operacji na bazie danych.
 * **Security:** Ochrona przed atakami CSRF przy użyciu **Antiforgery Tokens**.
-
+* 
 ---
+
+## 2.1. Model Danych i Relacji (UML)
+
+Poniższy schemat przedstawia architekturę klas oraz przepływ danych w aplikacji. Logika biznesowa jest odseparowana od warstwy prezentacji (Razor Pages) poprzez interfejs serwisu.
+
+```mermaid
+
+classDiagram
+    class DiscountCode {
+        +int Id
+        +string Code
+        +string Description
+        +string Status
+    }
+
+
+    class IDiscountService {
+        <<interface>>
+        +GetAllCodes() Task~List~DiscountCode~~
+        +AddCode(DiscountCode code) Task
+        +UseCode(string code) Task~bool~
+        +DeleteCode(int id) Task
+    }
+
+    class DiscountService {
+        -ApplicationDbContext _context
+        +GetAllCodes()
+        +AddCode()
+        +UseCode()
+    }
+
+    class ApplicationDbContext {
+        +DbSet~DiscountCode~ DiscountTable
+    }
+
+    IDiscountService <|.. DiscountService : implements
+    DiscountService --> ApplicationDbContext : uses
+    ApplicationDbContext --> DiscountCode : manages
+```
 
 ## 3. Instrukcja uruchomienia
 
