@@ -1,4 +1,4 @@
-﻿# 🏷️ DiscountApp – System Zarządzania Kodami Rabatowymi
+# 🏷️ DiscountApp – System Zarządzania Kodami Rabatowymi
 
 ## 0. Informacje Ogólne
 **DiscountApp** to aplikacja webowa zbudowana w technologii **ASP.NET Core Razor Pages**. System służy do kompleksowego zarządzania cyklem życia kodów rabatowych: od ich generowania, przez monitorowanie, aż po bezpieczną weryfikację i jednorazową realizację.
@@ -22,7 +22,7 @@ Projekt został zrealizowany z wykorzystaniem nowoczesnych narzędzi programisty
 ---
 
 ## 2. Architektura i Wzorce
-Mimo edukacyjnego charakteru projektu, zaimplementowano w nim wzorce klasy Enterprise:
+Charakteru projektu:
 
 * **Dependency Injection (DI):** Wykorzystanie wbudowanego kontenera .NET do wstrzykiwania serwisu `IDiscountService`.
 * **Service Pattern:** Logika biznesowa została wyizolowana od warstwy prezentacji i zamknięta w dedykowanym serwisie.
@@ -33,27 +33,25 @@ Mimo edukacyjnego charakteru projektu, zaimplementowano w nim wzorce klasy Enter
 
 ## 3. Instrukcja uruchomienia
 
-### Krok 1: Baza danych (Docker)
-Uruchom instancję PostgreSQL za pomocą komendy:
+### Krok 1: Budowa i start (Docker)
+W folderze głównym projektu (tam, gdzie znajduje się plik docker-compose.yml) wykonaj komendę:
 
 ```bash
-docker run --name discount-db   -e POSTGRES_USER=root   -e POSTGRES_PASSWORD=root   -e POSTGRES_DB=DiscountDb   -p 5432:5432   -d postgres
+docker-compose up --build
  ```
-### Krok 2: Konfiguracja tabeli
-Połącz się z bazą i wykonaj poniższy skrypt SQL:
-```SQL
-CREATE TABLE "DiscountTable" (
-    "Id" SERIAL PRIMARY KEY,
-    "Code" TEXT NOT NULL,
-    "Description" TEXT,
-    "Status" TEXT NOT NULL DEFAULT 'ACTIVE'
-);
-```
-### Krok 3: Uruchomienie aplikacji
+
+ ### Krok 2: Restart (opcjonalny)
+ Użyj tych komend, jeśli chcesz całkowicie wyczyścić bazę danych i wymusić ponowne wykonanie skryptu `init.sql`
 ```bash
-dotnet run
+docker-compose down -v
+docker-compose up --build
 ```
-Aplikacja dostępna pod adresem: `http://localhost:5000`
+
+### Krok 3: Dostęp do aplikacji
+* **Baza danych**: Host: `db` (wewn.) lub `localhost:5432` (zewn.).
+* **User**: `root` | **Password**: `root` | **Database**: `DiscountDb`.
+
+
 
 ## 4. Funkcjonalności
 ✅ Zarządzanie: Dodawanie nowych kodów rabatowych z opisem.
@@ -63,6 +61,8 @@ Aplikacja dostępna pod adresem: `http://localhost:5000`
 ✅ Realizacja: Moduł weryfikujący i blokujący ponowne użycie kodu.
 
 ✅ Usuwanie: Możliwość zarządzania retencją danych z poziomu UI.
+
+✅ Inicializacja: Kod automatycznie inicjalizuje bazę danych do działania programu. 
 
 ## Słowa końcowe
 
