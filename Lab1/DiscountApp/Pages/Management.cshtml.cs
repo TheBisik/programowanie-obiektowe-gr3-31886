@@ -7,12 +7,17 @@ public class ManagementModel : PageModel
     private readonly IDiscountService _service;
     public string Message { get; set; }
 
-    public ManagementModel(IDiscountService service) => _service = service;
+    public ManagementModel(IDiscountService service) => _service = service; // konstruktor
 
-    public async Task<IActionResult> OnPostAsync(string code, string description)
+    // public ManagementModel(IDiscountService service)
+    // {
+    //     _service = service;
+    // }
+
+    public async Task<IActionResult> OnPostAsync(string code, string description) // Model Binding automatycznie wyciąga dane
     {
-        await _service.AddCodeAsync(code, description);
+        await _service.AddCodeAsync(code, description); // dodaje asynchronicznie do bazy kod
         Message = "Kod dodany pomyślnie!";
-        return Page();
+        return Page(); //zwraca stronę z nowym kodem (odświerza)
     }
 }

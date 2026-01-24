@@ -4,15 +4,15 @@ using Lab1.Interfaces;
 
 public class UseCodeModel : PageModel
 {
-    private readonly IDiscountService _discountService;
+    private readonly IDiscountService _discountService; // implementacja serwisu do odczytu
 
     public UseCodeModel(IDiscountService discountService)
     {
         _discountService = discountService;
     }
 
-    [BindProperty]
-    public string ResultMessage { get; set; }
+    [BindProperty] // binduje stringa dla c# i html
+    public string ResultMessage { get; set; } 
     
     public bool IsSuccess { get; set; }
 
@@ -21,13 +21,13 @@ public class UseCodeModel : PageModel
         // Strona po prostu się wyświetla
     }
 
-    public async Task<IActionResult> OnPostAsync(string inputCode)
+    public async Task<IActionResult> OnPostAsync(string inputCode) // czeka na post formularza
     {
-        if (string.IsNullOrEmpty(inputCode))
+        if (string.IsNullOrEmpty(inputCode)) // jesli nie jest pusty i empty
         {
             ResultMessage = "Musisz wpisać kod!";
             IsSuccess = false;
-            return Page();
+            return Page(); // zwraca stronę
         }
 
         // Wywołujemy logikę z Twojego serwisu
@@ -38,6 +38,6 @@ public class UseCodeModel : PageModel
         // Proste sprawdzenie dla koloru alertu
         IsSuccess = response.Contains("Success") || response.Contains("pomyślnie");
 
-        return Page();
+        return Page(); // zwraca stronę
     }
 }
