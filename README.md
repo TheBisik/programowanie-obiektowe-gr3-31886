@@ -1,4 +1,4 @@
-# 🏷️ DiscountApp – System Zarządzania Kodami Rabatowymi
+﻿# 🏷️ DiscountApp – System Zarządzania Kodami Rabatowymi
 
 ## 0. Informacje Ogólne
 **DiscountApp** to aplikacja webowa zbudowana w technologii **ASP.NET Core Razor Pages**. System służy do kompleksowego zarządzania cyklem życia kodów rabatowych: od ich generowania, przez monitorowanie, aż po bezpieczną weryfikację i jednorazową realizację.
@@ -22,12 +22,52 @@ Projekt został zrealizowany z wykorzystaniem nowoczesnych narzędzi programisty
 ---
 
 ## 2. Architektura i Wzorce
-Charakteru projektu:
+Mimo edukacyjnego charakteru projektu, zaimplementowano w nim wzorce klasy Enterprise:
 
 * **Dependency Injection (DI):** Wykorzystanie wbudowanego kontenera .NET do wstrzykiwania serwisu `IDiscountService`.
 * **Service Pattern:** Logika biznesowa została wyizolowana od warstwy prezentacji i zamknięta w dedykowanym serwisie.
 * **Repository Pattern:** Wykorzystanie `ApplicationDbContext` do abstrakcji operacji na bazie danych.
 * **Security:** Ochrona przed atakami CSRF przy użyciu **Antiforgery Tokens**.
+ 
+
+## 2.1. Model Danych i Relacji (UML)
+
+Poniższy schemat przedstawia architekturę klas oraz przepływ danych w aplikacji. Logika biznesowa jest odseparowana od warstwy prezentacji (Razor Pages) poprzez interfejs serwisu.
+
+```mermaid
+
+classDiagram
+    class DiscountCode {
+        +int Id
+        +string Code
+        +string Description
+        +string Status
+    }
+
+
+    class IDiscountService {
+        <<interface>>
+        +GetAllCodes() Task~List~DiscountCode~~
+        +AddCode(DiscountCode code) Task
+        +UseCode(string code) Task~bool~
+        +DeleteCode(int id) Task
+    }
+
+    class DiscountService {
+        -ApplicationDbContext _context
+        +GetAllCodes()
+        +AddCode()
+        +UseCode()
+    }
+
+    class ApplicationDbContext {
+        +DbSet~DiscountCode~ DiscountTable
+    }
+
+    IDiscountService <|.. DiscountService : implements
+    DiscountService --> ApplicationDbContext : uses
+    ApplicationDbContext --> DiscountCode : manages
+```
 
 ---
 
@@ -51,7 +91,7 @@ docker-compose up --build
 * **Baza danych**: Host: `db` (wewn.) lub `localhost:5432` (zewn.).
 * **User**: `root` | **Password**: `root` | **Database**: `DiscountDb`.
 
-
+---
 
 ## 4. Funkcjonalności
 ✅ Zarządzanie: Dodawanie nowych kodów rabatowych z opisem.
@@ -62,7 +102,7 @@ docker-compose up --build
 
 ✅ Usuwanie: Możliwość zarządzania retencją danych z poziomu UI.
 
-✅ Inicializacja: Kod automatycznie inicjalizuje bazę danych do działania programu. 
+---
 
 ## Słowa końcowe
 
