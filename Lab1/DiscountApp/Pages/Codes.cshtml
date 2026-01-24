@@ -29,14 +29,14 @@
                     <td class="px-6 py-4 font-bold text-gray-900">@item.Code</td>
                     <td class="px-6 py-4">
                         <span class="px-2.5 py-0.5 rounded-full text-xs font-medium 
-        @(item.Status.ToString().ToUpper() == "ACTIVE" ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-600")">
-                            @item.Status
+        @(item.Status.ToString().ToUpper() == "ACTIVE" ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-600")"> <!-- pobiera enuma do stringa, zamienia na wielkie znaki i porównuje  -->
+                            @item.Status <!-- wyświetla status -->
                         </span>
                     </td>
-                    <td class="px-6 py-4 text-gray-500">@item.Description</td>
+                    <td class="px-6 py-4 text-gray-500">@item.Description</td> <!-- wyświetla opis -->
                     <td class="px-6 py-4 text-right">
-                        <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" onsubmit="return confirm('Na pewno chcesz usunąć ten kod?');">
-                            @Html.AntiForgeryToken() <button type="submit" class="text-red-600 hover:text-red-900 font-medium transition">
+                        <form method="post" asp-page-handler="Delete" asp-route-id="@item.Id" onsubmit="return confirm('Na pewno chcesz usunąć ten kod?');"> <!-- Szuka handlera Delete do usuwania po item.id -->
+                            @Html.AntiForgeryToken() <button type="submit" class="text-red-600 hover:text-red-900 font-medium transition"> <!-- ukryty klucz, który chroni przed atakami typu CSRF -->
                                 Usuń
                             </button>
                         </form>
