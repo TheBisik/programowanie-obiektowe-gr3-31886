@@ -88,6 +88,7 @@ docker-compose up --build
 ```
 
 ### Krok 3: Dostęp do aplikacji
+* **Web**: http://localhost:8080/
 * **Baza danych**: Host: `db` (wewn.) lub `localhost:5432` (zewn.).
 * **User**: `root` | **Password**: `root` | **Database**: `DiscountDb`.
 
